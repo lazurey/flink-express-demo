@@ -13,6 +13,15 @@ public class ScanItem {
     private String operatorId;
     private Date operationDate;
     private String destinationPostcode;
+    private Integer amount;
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
 
     public ScanItem() {}
 
@@ -74,12 +83,13 @@ public class ScanItem {
         DateFormat format = new SimpleDateFormat("yyyyMMdd HHmmss");
         this.operationDate = format.parse(operationDate);
         this.destinationPostcode = destinationPostcode;
+        this.amount = 1;
     }
 
 
     @Override
     public String toString() {
-        return "(" + operationId + "," + locationPostcode + ")";
+        return "(" + locationPostcode + "," + amount + ")";
     }
 
 }

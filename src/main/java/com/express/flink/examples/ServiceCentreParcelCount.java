@@ -5,6 +5,7 @@ import com.express.flink.models.ServiceCentre;
 import com.express.flink.sources.MockScanData;
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.functions.MapFunction;
+import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
@@ -40,7 +41,8 @@ public class ServiceCentreParcelCount {
                 });
 
         DataStream<ScanItem> counts = scanItems.flatMap(new Tokenizer())
-                .keyBy("locationPostcode");
+                .keyBy("locationPostcode")
+                .sum("amount");
 
         // 4. Specify where to put the results of your computations,
         counts.print();
